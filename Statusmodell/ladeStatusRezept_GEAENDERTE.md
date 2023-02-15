@@ -12,7 +12,7 @@ Das ist insbesondere nach Rechnungsläufen von Vorteil, weil die Änderung einer
 
 Damit kommen wir auch gleich zur Notwendigkeit einer kleinen Komplikation. Es liegt in der Natur das Frage-Antwort-Protokolls, daß das RZ vom AVS keine Bestätigung über den erfolgreichen Empfang einer Antwort erhält. Falls beim Empfang einer Antwort etwas schiefginge (Timeout, Netzwerkfehler, ...), dann könnte das AVS nur durch Id-basierte Statusanfragen für den Gesamtbestand - also Zigtausende Lieferungen - die verlorengegangenen Änderungen wiederfinden und wieder auf den gleichen Stand kommen wie das RZ.
 
-Dieses Problem wird so gelöst, daß abgeholte Statusänderungen jeweils erst bei der nachfolgenden Änderungsabfrage als erledigt abgehakt werden. Abholen der Statusänderungen setzt nur ein 'abgeholt'-Flag, das dann bei der nachfolgenden Änderungsabfrage zusammen mit dem 'geändert'-Flag zurückgesetzt wird. Das gibt dem AVS die Möglichkeit, nach Fehlschlag einer Statusänderungsabfrage eine Untervariante der Änderungsabfrage ohne Rücksetzen der zuvor abgeholten Änderungen zu verwenden.
+Dieses Problem wird so gelöst, daß abgeholte Statusänderungen jeweils erst bei der *nachfolgenden* Änderungsabfrage als erledigt abgehakt werden. Abholen der Statusänderungen setzt nur ein 'abgeholt'-Flag, das dann bei der nachfolgenden Änderungsabfrage zusammen mit dem 'geändert'-Flag zurückgesetzt wird. Das gibt dem AVS die Möglichkeit, nach Fehlschlag einer Statusänderungsabfrage eine Untervariante der Änderungsabfrage ohne Rücksetzen der zuvor abgeholten Änderungen zu verwenden.
 
 Damit benötigt jeder Rezeptdatensatz zwei Boolesche Flags:
 - `Status_geaendert` - das RZ hat den Pfeifferstatus des Rezepts geändert
@@ -45,7 +45,7 @@ Bei Variante 1 kann das AVS mit einer einzigen Statusabfrage alle 10 Minuten nic
 ---
 ## Interaktion zwischen Änderungsabfragen und normalen Statusabfragen
 
-Bei normalen Statusabfragen gibt es keinerlei Änderungen der Flags. Man könnte natürlich in Versuchung kommen, die zurückgegebenen Statuswerte als bekannt anzusehen Aber mangels Empfangsquittierung kann diese Annahme nicht gesichert sein.
+Bei normalen Statusabfragen gibt es keinerlei Änderungen der Flags. Man könnte natürlich in Versuchung kommen, die zurückgegebenen Statuswerte als bekannt anzusehen. Aber mangels Empfangsquittierung kann diese Annahme nicht gesichert sein.
 
 ---
 ## Zwei Boolesche Flags anstelle einer Aufzählung mit drei Werten
@@ -63,7 +63,7 @@ In gewissem Sinne wäre es logischer gewesen, den Fortsetzungsfall (also mit vor
 
 Andererseits ist es so, daß der Spezialfall (ohne vorheriges Rücksetzen) eigentlich praktisch nie auftreten sollte, da er nur zur Reparatur nach einem relativ unerwarteten Fehler benötigt wird. 
 
-Ergo wurde die Bürde der syntaktischen Komplikation - Hinzufügen von `rzLieferId = 'WiederaufsetzenNachEmpfangsfehler'` mit Wechsel von `perStatus` auf `perLieferID` - dem nur alle Jubeljahre auftretenden Spezialfall aufgebürdet. Damit wird der ununterbrochen rund um die Uhr zum Einsatz kommende Normalfall schlanker und logischer - i.e. wirklich eine Statusabfrage mit Statusfilter `GEAENDERTE` und nicht eine Lieferid-Abfrage mit Pseudo-Lieferid und seltsamer Semantik.
+Ergo wurde die Bürde der syntaktischen Komplikation - Hinzufügen von `rzLieferId = 'WiederaufsetzenNachEmpfangsfehler'` mit Wechsel von `perStatus` auf `perLieferID` - dem nur alle Jubeljahre auftretenden Spezialfall auferlegt. Damit wird der ununterbrochen rund um die Uhr zum Einsatz kommende Normalfall schlanker und logischer - i.e. wirklich eine Statusabfrage mit Statusfilter `GEAENDERTE` und nicht eine Lieferid-Abfrage mit Pseudo-Lieferid und seltsamer Semantik.
 
 ---
 ## Umsetzungsaspekte
