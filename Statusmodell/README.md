@@ -1,6 +1,6 @@
 ﻿Diese Abteilung der Werkstatt dient der Dokumentation und Diskussion des ApoTI-Statusmodells, einschließlich damit in Verbindung stehender prospektiver Protokollergänzungen wie Abfrage von Statusänderungen.
 
-Diskussionsbeiträge sollten möglichst bei dem spezifischsten dafür relevanten Artikel eingestellt werden, um sowohl leichtes Auffinden Beiträge zu fördern als auch eine gute Fokussierung der Diskussionen zu erreichen.
+Diskussionsbeiträge sollten möglichst bei dem spezifischsten dafür relevanten Artikel eingestellt werden, um sowohl leichtes Auffinden der Beiträge zu ermöglichen als auch eine gute Fokussierung der Diskussionen zu erreichen.
 
 # Hauptartikel
 
