@@ -1,0 +1,329 @@
+E apoIk                xs:string P(\d{9})
+E avsId                xs:string P([\w_]{1,20})
+E eMuster16
+|    rezeptTyp            fiverx:rezeptTyp
+|    muster16Id           fiverx:muster16Id
+|    kArt                 fiverx:kArt
+|    apoIk                fiverx:apoIk
+|    rTyp                 fiverx:rTyp
+|    gesBrutto            fiverx:gesBrutto
+|    zuzahlung            fiverx:zuzahlung
+|    artikel              {..9}
+|       @
+|       ?( pzn                  fiverx:pzn
+|       ?) hilfsmittelNr        fiverx:hilfsmittelNr
+|       posNr                fiverx:posNr
+|       faktor               fiverx:faktor
+|       taxe                 fiverx:taxe
+|       autidem              {0} fiverx:knzTyp
+|       vZeile               {0} xs:string P(.{1,128})
+|    abDatum              fiverx:abDatum
+|    noctu                fiverx:noctu
+|    vrtrgsArztNr         {0} fiverx:vrtrgsArztNr
+|    laNr                 {0} fiverx:laNr
+|    verDat               {0} fiverx:verDat
+|    kkIk                 {0} fiverx:kkIk
+|    vrsNr                {0} fiverx:vrsNr
+|    kName                {0} fiverx:kName
+|    vStat                {0} fiverx:vStat
+|    vGeb                 {0} fiverx:vGeb
+|    bvg                  {0} fiverx:bvg
+|    hilf                 {0} fiverx:hilf
+|    impf                 {0} fiverx:impf
+|    sprStBedarf          {0} fiverx:sprStBedarf
+|    bgrPfl               {0} fiverx:bgrPfl
+|    gebFrei              {0} fiverx:gebFrei
+|    unfall               {0} fiverx:unfall
+|    unfallTag            {0} fiverx:unfallTag
+|    aUnfall              {0} fiverx:aUnfall
+|    eigBet               {0} fiverx:eigBet
+|    bediener             {0} fiverx:bediener
+|    arbPlatz             {0} fiverx:arbPlatz
+|    sonstige             {0} fiverx:sonstige
+|    vkGueltigBis         {0} fiverx:vkGueltigBis
+|    tRezept              {0}
+|       tSicherheitsbestimmung fiverx:knzTyp
+|       tFachinformation     fiverx:knzTyp
+|       tInLabel             fiverx:knzTyp
+|       tOffLabel            fiverx:knzTyp
+E eRezept
+|    eRezeptId            fiverx:eRezeptId
+|    eRezeptData          xs:base64Binary P(.{1,20000})
+E eRezeptId            fiverx:eRezeptIdTyp
+E eRezeptInfo
+|    eRezeptInfoData      xs:base64Binary
+E pRezept
+|    pRezeptTyp           xs:string E(STANDARDREZEPT|BTM|SPRECHSTUNDENBEDARF)
+|    transaktionsNummer   fiverx:transaktionsNummer
+|    kArt                 fiverx:kArt
+|    apoIk                fiverx:apoIk
+|    rTyp                 fiverx:rTyp
+|    gesBrutto            fiverx:gesBrutto
+|    zuzahlung            fiverx:zuzahlung
+|    pPosition1
+|       pzn                  fiverx:pzn
+|       faktor               fiverx:faktor
+|       taxe                 fiverx:taxe
+|    pCharge              {1..99}
+|       herstellerSchluessel xs:string P(\d{1})
+|       herstellerNr         xs:string P(\d{9})
+|       herstellungsDatum    xs:dateTime
+|       chargenNr            xs:string P(\d{2})
+|       anzahlApplikationen  xs:string P(\d{2})
+|       pWirkstoff           {0..999}
+|          pzn                  fiverx:pzn
+|          pPosNr               xs:integer P(\d{1,2})
+|          wirkstoffName        {0} xs:string P(.{1,128})
+|          notiz                {0} xs:string P(.{1,128})
+|          faktor               fiverx:faktor
+|          faktorKennzeichen    xs:string P(\d{2})
+|          taxe                 fiverx:taxe
+|          preisKennzeichen     xs:string P(\d{2})
+|    abDatum              fiverx:abDatum
+|    erstellungsZeitpunkt xs:dateTime
+|    hashCode             xs:string P(\d{40})
+|    noctu                fiverx:noctu
+|    vrtrgsArztNr         {0} fiverx:vrtrgsArztNr
+|    laNr                 {0} fiverx:laNr
+|    verDat               {0} fiverx:verDat
+|    kkIk                 {0} fiverx:kkIk
+|    vrsNr                {0} fiverx:vrsNr
+|    kName                {0} fiverx:kName
+|    vStat                {0} fiverx:vStat
+|    vGeb                 {0} fiverx:vGeb
+|    bvg                  {0} fiverx:bvg
+|    sprStBedarf          {0} fiverx:sprStBedarf
+|    gebFrei              {0} fiverx:gebFrei
+|    bediener             {0} fiverx:bediener
+|    arbPlatz             {0} fiverx:arbPlatz
+|    sonstige             {0} fiverx:sonstige
+|    vkGueltigBis         {0} fiverx:vkGueltigBis
+E faktor               xs:integer P(\d{1,6})
+E fCode                xs:string P(\d{3})
+E fKommentar           xs:string P((.|\r|\n){1,512})
+E fWert                xs:decimal P(-?\d{1,7}\.\d{2})
+E gesBrutto            fiverx:betragTyp
+E hilfsmittelNr        xs:string P(\d{10})
+E muster16Id           xs:string P(\d{9})
+E posNr                xs:integer P([1-9])
+E pzn                  xs:string P(\d{8})
+E retHeader
+|    rzKdNr               fiverx:rzKdNr
+|    rzIk                 xs:string P(\d{9})
+|    apoIk                fiverx:apoIk
+|    test                 {0} fiverx:test
+E rezeptStatus         xs:string E(ALLE|BEANSTANDETE|FEHLER|VERBESSERBAR)
+E rzeDienste
+|    retHeader            fiverx:retHeader
+|    u4                   xs:boolean A(kunde xs:boolean)
+|    u5
+|       u5_1                 xs:boolean A(kunde xs:boolean)
+|       u5_2                 xs:boolean A(kunde xs:boolean)
+|    u6
+|       u6_1
+|          asynchron            xs:boolean A(kunde xs:boolean)
+|          synchron             xs:boolean A(kunde xs:boolean)
+|          u1                   xs:boolean A(kunde xs:boolean)
+|       u6_2
+|          synchron             xs:boolean A(kunde xs:boolean)
+|          asynchron            xs:boolean A(kunde xs:boolean)
+E rzeLeistung
+|    rzLeistungHeader
+|       sendHeader           fiverx:sendHeader
+|       sndId                xs:string P(\d{1,10})
+|    rzLeistungInhalt     {..300}
+|       eLeistungHeader
+|          avsId                fiverx:avsId
+|          aPeriode             {0} xs:gMonthDay
+|       eLeistungBody
+|       ?( eRezept              fiverx:eRezept
+|       ?  eMuster16            fiverx:eMuster16
+|       ?) pRezept              fiverx:pRezept
+E rzeLeistungStatus
+|    retHeader            fiverx:retHeader
+|    statusUpd            {..300}
+|    ?( eRezeptStatus
+|          avsId                fiverx:avsId
+|          eRezeptId            fiverx:eRezeptId
+|          status               fiverx:eStatus
+|          rzLieferId           fiverx:rzLieferId
+|          statusInfo           {0..999999999} fiverx:statusInfo
+|    ?  muster16Status
+|          avsId                fiverx:avsId
+|          muster16Id           fiverx:muster16Id
+|          m16Status            xs:string E(VOR_PRUEFUNG|FEHLER|VERBESSERBAR|ABRECHENBAR|HINWEIS|STORNIERT)
+|          rzLieferId           {0} fiverx:rzLieferId
+|          statusInfo           {0..999999999} fiverx:statusInfo
+|    ?  eRezeptVorpruefungStatus
+|          avsId                fiverx:avsId
+|          eRezeptId            fiverx:eRezeptId
+|          vStatus              xs:string E(VOR_PRUEFUNG|FEHLER|VERBESSERBAR|ABRECHENBAR|HINWEIS)
+|          rzLieferId           {0} fiverx:rzLieferId
+|          statusInfo           {0..999999999} fiverx:statusInfo
+|    ?) pRezeptStatus
+|          avsId                fiverx:avsId
+|          transaktionsNummer   fiverx:transaktionsNummer
+|          erstellungsJahr      fiverx:erstellungsJahr
+|          p16Status            fiverx:eStatus
+|          rzLieferId           {0} fiverx:rzLieferId
+|          statusInfo           {0..999999999} fiverx:statusInfo
+E rzeParamDienste
+|    sendHeader           fiverx:sendHeader
+E rzeParamLaden
+|    sendHeader           fiverx:sendHeader
+|    @
+|    ?( perRezept
+|          eRezeptId            fiverx:eRezeptId
+|    ?) perIntervall
+|          vonDatum             xs:date
+|          bisDatum             xs:date
+E rzeParamLadeVersion
+|    sendHeader           fiverx:sendHeader
+E rzeParamStatus
+|    sendHeader           fiverx:sendHeader
+|    @
+|    ?( perRezeptID
+|       ?( eRezeptId            fiverx:eRezeptId
+|       ?  @
+|             transaktionsNummer   fiverx:transaktionsNummer
+|             erstellungsJahr      fiverx:erstellungsJahr
+|       ?  muster16Id           fiverx:muster16Id
+|       ?) eRezeptIdPruef       fiverx:eRezeptIdTyp
+|    ?  perLieferID
+|          rzLieferId           fiverx:rzLieferId
+|          rezeptStatus         fiverx:rezeptStatus
+|    ?) perStatus
+|          rezeptStatus         fiverx:rezeptStatus
+E rzeParamStorno
+|    sendHeader           fiverx:sendHeader
+|    @
+|    ?( eRezeptId            fiverx:eRezeptId
+|    ?  @
+|          transaktionsNummer   fiverx:transaktionsNummer
+|          erstellungsJahr      fiverx:erstellungsJahr
+|    ?) muster16Id           fiverx:muster16Id
+E rzeParamVersion
+|    versionNr            fiverx:versionNr
+E rzePruefung
+|    sendHeader           fiverx:sendHeader
+|    rzPruefungBody
+|       avsId                fiverx:avsId
+|       pruefModus           xs:string E(SYNCHRON|ASYNCHRON)
+|       @
+|       ?( eMuster16            fiverx:eMuster16
+|       ?) eRezeptInfo          fiverx:eRezeptInfo
+E rzeQuittung
+|    retHeader            fiverx:retHeader
+|    bodyQuittung
+|       rzDatum              xs:dateTime
+|       rzLieferId           fiverx:rzLieferId
+|       rezeptIds
+|          id                   {..300}
+|          ?( eRezeptId            fiverx:eRezeptIdTyp
+|          ?  muster16Id           fiverx:muster16Id
+|          ?  @
+|                transaktionsNummer   fiverx:transaktionsNummer
+|                erstellungsJahr      fiverx:erstellungsJahr
+|          ?) rezeptIDAblehnung
+|                @
+|                ?( muster16Id           fiverx:muster16Id
+|                ?  @
+|                      transaktionsNummer   fiverx:transaktionsNummer
+|                      erstellungsJahr      fiverx:erstellungsJahr
+|                ?) eRezeptId            fiverx:eRezeptIdTyp
+|                statusInfoQuittung
+|                   fCode                fiverx:fCode
+|                   istStatus            fiverx:eStatus
+|                   fKommentar           {0} fiverx:fKommentar
+|       rzAnzLeistung        xs:int
+|       vorAbrTermin         {0} xs:date
+E rzeRetLeistung
+|    retHeader            fiverx:retHeader
+|    rzRetLeistungInhalt  {..999999999}
+|       eRezept              fiverx:eRezept
+E rzeRetPruefung
+| ?( rzeQuittung          fiverx:rzeQuittung
+| ?) rzeLeistungStatus    fiverx:rzeLeistungStatus
+E rzeRetStorno
+|    retHeader            fiverx:retHeader
+|    eStorno              xs:string E(ABGERECHNET|STORNIERT|VOR_ABRECHNUNG)
+|    @
+|    ?( eRezeptId            fiverx:eRezeptId
+|    ?  @
+|          transaktionsNummer   fiverx:transaktionsNummer
+|          erstellungsJahr      fiverx:erstellungsJahr
+|    ?) muster16Id           fiverx:muster16Id
+E rzeRueckweisungen
+|    rueckweisungCont
+|       rueckweisung         {..999999999} xs:base64Binary
+E rzeVersion
+|    uVersion             {..999999999}
+|       versionNr            fiverx:versionNr
+|       gracePeriod          xs:gYearMonth
+E rzKdNr               xs:string P(.{1,47})
+E rzLieferId           xs:string P(\w{1,40})
+E sendHeader
+|    rzKdNr               fiverx:rzKdNr
+|    avsSw
+|       hrst                 xs:string P(.{1,128})
+|       nm                   xs:string P(.{1,128})
+|       vs                   xs:string P(.{1,64})
+|    apoIk                fiverx:apoIk
+|    test                 {0} fiverx:test
+|    pw                   {0} xs:string P(.{6,50})
+E statusInfo
+|    fCode                fiverx:fCode
+|    fStatus              xs:string E(HINWEIS|VERBESSERBAR|FEHLER)
+|    fKommentar           {0} fiverx:fKommentar
+|    fWert                {0} fiverx:fWert
+|    fristEnde            {0} xs:dateTime
+|    fFachlich            {0}
+|       fThemaCode
+|          fTCode               xs:string P(\d{2})
+|          posNr                {0} fiverx:posNr
+|       fKurzText            xs:string P((.|\r|\n){1,256})
+|       fLangText            {0} xs:string P((.|\r|\n){1,256})
+|       fHauptFehler         {0} xs:boolean
+|       fVerbesserung        {0}
+|       ?( zuzahlung            fiverx:zuzahlung
+|       ?  gesBrutto            fiverx:gesBrutto
+|       ?) fArtikel
+|             faktor               {0} fiverx:faktor
+|             taxe                 {0} fiverx:taxe
+E taxe                 fiverx:betragTyp
+E test                 xs:boolean
+E versionNr            xs:string P(\d{2}\.\d{2})
+E zuzahlung            fiverx:betragTyp
+T betragTyp            xs:decimal P(\d{1,7}\.\d{2})
+T eRezeptIdTyp         xs:string P(.{1,50})
+T eStatus              xs:string E(VOR_PRUEFUNG|VOR_ABRECHNUNG|FEHLER|VERBESSERBAR|RUECKWEISUNG|ABGERECHNET|STORNIERT|HINWEIS|ABRECHENBAR)
+T knzTyp               xs:byte P([0-2])
+E kArt                 xs:string P(\d{2})
+E rTyp                 xs:string E(GKV|PKV)
+E abDatum              xs:date
+E noctu                fiverx:knzTyp
+E vrtrgsArztNr         xs:string P(\d{5,9})
+E laNr                 xs:string P(\d{9})
+E verDat               xs:date
+E kkIk                 xs:string P(\d{9})
+E vrsNr                xs:string P(\w{5,12})
+E kName                xs:string P(.{1,47})
+E vStat                xs:string P(\w{5})
+E vGeb                 xs:date
+E bvg                  fiverx:knzTyp
+E hilf                 fiverx:knzTyp
+E impf                 fiverx:knzTyp
+E sprStBedarf          fiverx:knzTyp
+E bgrPfl               fiverx:knzTyp
+E gebFrei              fiverx:knzTyp
+E unfall               fiverx:knzTyp
+E unfallTag            xs:date
+E aUnfall              fiverx:knzTyp
+E eigBet               fiverx:betragTyp
+E bediener             xs:string P(.{1,47})
+E arbPlatz             xs:string P(.{1,47})
+E sonstige             fiverx:knzTyp
+E vkGueltigBis         xs:gYearMonth
+E transaktionsNummer   xs:string P(\d{9})
+E rezeptTyp            xs:string E(STANDARDREZEPT|BTM|SPRECHSTUNDENBEDARF|TREZEPT)
+E erstellungsJahr      xs:string P(\d{4})

@@ -21,7 +21,7 @@ Trotzdem sprechen einige Dinge für eine eventuelle zukünftige Unterstützung v
 3) Ein AVS ohne vollständigen historischen Datenbestand¹ kann nur aus einem dedizierten Statuswert wie `ABGESETZT` zweifelsfrei ablesen, daß die Wiederfreischaltung eines Rezeptes zur Bearbeitung/Neueinrichtung beabsichtigt ist. Anderenfalls könnte schon eine ansonsten relativ harmlose Fehlfunktion wie die Resurrektion einer alten Fehlermeldung zu einer unbeabsichtigten Neuabrechnung eines Rezepts führen.
 
 ---
-*¹) z.B. nach Umstellung der Apotheke auf ein anderes AVS, i.V.m. Statusabfrage über `GEAENDERTE`*
+<sup>*1) z.B. nach Umstellung der Apotheke auf ein anderes AVS, i.V.m. Statusabfrage über `GEAENDERTE`*</sup>
 
 ---
 <sup>*Stand 2023-02-14*</sup>

@@ -30,10 +30,12 @@ Weitere Details finden sich in den folgenden Artikeln:
 - [(Nicht-)Abrechenbarkeit von `FEHLER`][NAvF]
 - [Transienz von `FEHLER` und `RUECKWEISUNG`][TvFuR]
 - [Statuswert für abgesetzte Rezepte][SfaR]
+- [Zulässigkeit von Statusübergängen][ZvSä]
 
 [TvFuR]: Transienz%20von%20FEHLER%20und%20RUECKWEISUNG.md
 [NAvF]: (Nicht-)Abrechenbarkeit%20von%20FEHLER.md
 [SfaR]: Statuswert%20für%20abgesetzte%20Rezepte.md
+[ZvSä]: Zulässigkeit%20von%20Statusübergängen.md
 
 ---
 <sup>*1) Bei via `sendeRezepte` eingereichten E-Rezepten ist bis einschließlich ApoTI 0.9.2 für den logischen Zustand `ABRECHENBAR` die Schreibweise `'VOR_ABRECHNUNG'`² definiert, so daß der logische Zustand `VOR_ABRECHNUNG` dort entweder nicht verfügbar ist oder als `'IN_ABRECHNUNG'` übermittelt werden muß. Unabhängig von dieser Anforderung an die externe Kodierung der Statuswerte kann intern trotzdem mit dem einheitlichen Statusmodell gearbeitet werden; es muß den lediglich bei der Wandlung von API-Antworten zu und von XML ggf. eine Umsetzung erfolgen.</sup>* 

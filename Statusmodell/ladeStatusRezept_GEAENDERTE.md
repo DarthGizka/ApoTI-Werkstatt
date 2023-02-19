@@ -1,5 +1,5 @@
 # Abfrage von Statusänderungen: `ladeStatusRezept(GEAENDERTE)`
-<sup>*Stand 2023-02-15*</sup>
+<sup>*Stand 2023-02-18*</sup>
 
 
 Hier ist ein Vorschlag für eine einfache, effiziente und minimal-invasive Umsetzung von Abfragen für Statusänderungen. 
@@ -30,6 +30,8 @@ Parameter für eine normale Änderungsabfrage ist `perStatus` mit `rezeptStatus 
 
 Für eine Änderungsabfrage nach Fehlschlag gilt stattdessen `perLieferID` mit `rezeptStatus = GEAENDERTE` und `rzLieferId = 'WiederaufsetzenNachEmpfangsfehler'` (sorry, Pattern '\w' erlaubt keine Leerzeichen oder Unterstriche).
 
+Rezepte aus der asynchronen Vorprüfung via `pruefeRezept` bleiben grundsätzlich außen vor. Zum einen gibt es bei diesen Rezepten keine Abrechnung und somit auch keine gesteigerte Notwendigkeit zum Verfolgen von Statusänderungen. Zum anderen sind Rezepte aus Vorprüf- und Abrechnungsbestand in `rzeLeistungStatus` nur anhand der Liefer-Id unterscheidbar, so daß Einbeziehen des Vorprüfbestandes den AVS erhöhten Verwaltungsaufwand aufbürden würde.
+
 ---
 ## Terminierung von Abfrageserien
 
@@ -45,7 +47,7 @@ Bei Variante 1 kann das AVS mit einer einzigen Statusabfrage alle 10 Minuten nic
 ---
 ## Interaktion zwischen Änderungsabfragen und normalen Statusabfragen
 
-Bei normalen Statusabfragen gibt es keinerlei Änderungen der Flags. Man könnte natürlich in Versuchung kommen, die zurückgegebenen Statuswerte als bekannt anzusehen. Aber mangels Empfangsquittierung kann diese Annahme nicht gesichert sein.
+Bei normalen Statusabfragen gibt es keinerlei Änderungen der Flags. Man könnte natürlich in Versuchung kommen, die zurückgegebenen Statuswerte als bekannt anzusehen Aber mangels Empfangsquittierung kann diese Annahme nicht gesichert sein.
 
 ---
 ## Zwei Boolesche Flags anstelle einer Aufzählung mit drei Werten
@@ -63,7 +65,7 @@ In gewissem Sinne wäre es logischer gewesen, den Fortsetzungsfall (also mit vor
 
 Andererseits ist es so, daß der Spezialfall (ohne vorheriges Rücksetzen) eigentlich praktisch nie auftreten sollte, da er nur zur Reparatur nach einem relativ unerwarteten Fehler benötigt wird. 
 
-Ergo wurde die Bürde der syntaktischen Komplikation - Hinzufügen von `rzLieferId = 'WiederaufsetzenNachEmpfangsfehler'` mit Wechsel von `perStatus` auf `perLieferID` - dem nur alle Jubeljahre auftretenden Spezialfall auferlegt. Damit wird der ununterbrochen rund um die Uhr zum Einsatz kommende Normalfall schlanker und logischer - i.e. wirklich eine Statusabfrage mit Statusfilter `GEAENDERTE` und nicht eine Lieferid-Abfrage mit Pseudo-Lieferid und seltsamer Semantik.
+Ergo wurde die Bürde der syntaktischen Komplikation - Hinzufügen von `rzLieferId = 'WiederaufsetzenNachEmpfangsfehler'` mit Wechsel von `perStatus` auf `perLieferID` - dem nur alle Jubeljahre auftretenden Spezialfall aufgebürdet. Damit wird der ununterbrochen rund um die Uhr zum Einsatz kommende Normalfall schlanker und logischer - i.e. wirklich eine Statusabfrage mit Statusfilter `GEAENDERTE` und nicht eine Lieferid-Abfrage mit Pseudo-Lieferid und seltsamer Semantik.
 
 ---
 ## Umsetzungsaspekte
