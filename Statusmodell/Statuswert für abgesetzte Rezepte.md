@@ -10,7 +10,9 @@ Das hat mehrere Vorteile:
 
 3) Jedes AVS unterstützt jetzt schon die Neueinreichung von Rezepten mit Status `FEHLER`.
 
-Der Status `RUECKWEISUNG` ist in der Protokollspezifikation nicht klar definiert, und die Unterstützung seitens der AVS liegt daher derzeit vermutlich irgendwo zwischen rudimentär und komplett abwesend.
+Das Rückmelden abgesetzter E-Rezepte mittels `FEHLER` erfordert keine spezifische Unterstützung seitens der AVS, da hier nur ein routinemäßig genutztes Protokollelement auf einen neuen Anwendungsfall ausgeweitet wird, ohne jegliche Änderungen am Protokoll selbst. Derzeit ist das die einzige zur Verfügung stehende Möglichkeit.
+
+Der für abgesetzte E-Rezepte eigentlich vorgesehene Status `RUECKWEISUNG` ist in der Protokollspezifikation nicht klar definiert, und ein Leitfaden schließt seine Verwendung sogar kategorisch aus. Die Unterstützung seitens der AVS liegt daher derzeit vermutlich irgendwo zwischen rudimentär und komplett abwesend.
 
 Trotzdem sprechen einige Dinge für eine eventuelle zukünftige Unterstützung von `RUECKWEISUNG` bzw. `ABGESETZT`:
 
@@ -24,4 +26,4 @@ Trotzdem sprechen einige Dinge für eine eventuelle zukünftige Unterstützung v
 <sup>*1) z.B. nach Umstellung der Apotheke auf ein anderes AVS, i.V.m. Statusabfrage über `GEAENDERTE`*</sup>
 
 ---
-<sup>*Stand 2023-02-14*</sup>
+<sup>*Stand 2023-02-19*</sup>
