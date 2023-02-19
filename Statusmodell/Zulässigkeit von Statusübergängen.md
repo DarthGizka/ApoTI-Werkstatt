@@ -19,7 +19,7 @@ Das Erstellen vollständiger Übergangstabellen bzw. -matrizen ist daher vermutl
 ---
 <sup>*1) `VOR_ABRECHNUNG` (a.k.a. 'IN_ABRECHNUNG') im Sinne des ApoTI-Statusmodells; der bei über `sendeRezepte` eingereichten E-Rezepten aufgrund einer historisch bedingten Anomalie als 'VOR_ABRECHNUNG' zu übermittelnde Status `ABRECHENBAR` ist hier nicht gemeint!*
 
-<sup>*2) Rezepte im Zustand `VOR_PRUEFUNG` werden von den RZ zunächst geprüft und nur bei positivem Prüfergebnis (`ABRECHENBAR`, `HINWEIS`, `VERBESSERBAR`) der Abrechnung zugeführt. Abhängig von der zeitlichen Überlappung mit dem Abfrageintervall der Apotheke ist es aber leicht möglich, daß das AVS den Übergang in einen geprüften Zustand nicht gar nicht sieht. Aus der Sicht der Apotheke wechselt das Rezept dann scheinbar direkt von `VOR_PRUEFUNG` zu `ABGERECHNET` oder sogar zu `RUECKWEISUNG`.*
+<sup>*2) Rezepte im Zustand `VOR_PRUEFUNG` werden von den RZ zunächst geprüft und nur bei positivem Prüfergebnis (`ABRECHENBAR`, `HINWEIS`, `VERBESSERBAR`) der Abrechnung zugeführt. Abhängig von der zeitlichen Überlappung mit dem Abfrageintervall der Apotheke ist es aber leicht möglich, daß das AVS den Übergang in einen geprüften Zustand gar nicht sieht. Aus der Sicht der Apotheke wechselt das Rezept dann scheinbar direkt von `VOR_PRUEFUNG` zu `ABGERECHNET` oder sogar zu `RUECKWEISUNG`.*
 
 <sup>*3) und auch bei anderen tiefgreifenden/umfassenden Änderungen von TP3-Spezifikationen wie 2021 im Fall der Zusatzdaten*</sup>
 
