@@ -31,7 +31,7 @@ Für P-Rezepte ist die Vorprüfung über `pruefeRezept`seltsamerweise nicht vorg
 
 ---
 
-<sup>*1) Asynchrone Muster16-Vorprüfung über `pruefeRezept` hat vermutlich außerhalb von Akzeptanz-Testsuites keinerlei praktische Bedeutung, weil dafür der bequemere Weg über `sendeRezepte` zur Verfügung steht. Mit letzterem kann man alle aufgelaufenen Rezepte in einem Schwung einreichen, auch gemischt mit E- und P-Rezepten. Bei E-Rezepten bietet asynchrone Vorprüfung im Gegensatz zu `sendeRezepte` absolute Gewißheit, daß das so geprüfte E-Rezept nicht in die Abrechnung gehen kann. Bei `sendeRezepte` müßte man dafür die Quittung weglassen, ab dann würde die Quittung nicht geprüft.*</sup>
+<sup>*1) Asynchrone Muster16-Vorprüfung über `pruefeRezept` hat vermutlich außerhalb von Akzeptanz-Testsuites keinerlei praktische Bedeutung, weil dafür der bequemere Weg über `sendeRezepte` zur Verfügung steht. Mit letzterem kann man alle aufgelaufenen Rezepte in einem Schwung einreichen, auch gemischt mit E- und P-Rezepten. Bei E-Rezepten bietet asynchrone Vorprüfung im Gegensatz zu `sendeRezepte` absolute Gewißheit, daß das so geprüfte E-Rezept nicht in die Abrechnung gehen kann. Bei `sendeRezepte` müßte man dafür die Quittung weglassen, aber dann würde die Quittung nicht geprüft.*</sup>
 
 <sup>*2) insbesondere im Gefolge größerer Änderungen der TA1 (2021 hatten sogar die besten AVS ein paar Anfangsschwierigkeiten); auch jetzt gibt es immer noch regelmäßig Verstöße gegen TA1, da offensichtlich einige AVS ihre Apotheken nicht durch Verhinderung von Fehleingaben unterstützen*</sup>
 
