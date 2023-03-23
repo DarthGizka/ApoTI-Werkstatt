@@ -6,10 +6,11 @@ Diskussionsbeiträge sollten möglichst bei dem spezifischsten dafür relevanten
 
 - [Das ApoTI-Statusmodell][ASM]
 - [Abfrage von Statusänderungen: `ladeStatusRezept(GEAENDERTE)`][lSR_G]
+- [Besonderheiten der Statusaktualisierung bei E-Rezepten][BdSbE]
 
 [ASM]: ApoTI-Statusmodell.md
 [lSR_G]: ladeStatusRezept_GEAENDERTE.md
-
+[BdSbE]: Statusaktualisierung%20bei%20E-Rezepten.md
 
 # Nebengeräusche
 

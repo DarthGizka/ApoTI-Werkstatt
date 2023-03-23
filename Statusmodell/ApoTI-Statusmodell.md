@@ -23,7 +23,7 @@ Der Status `RUECKWEISUNG` ist bislang nicht klar definiert und kann auf zwei unt
 2) Das Rezept wurde von der Kasse im Retaxationsverfahren abgesetzt. Die Apotheke kann das Rezept ggf. reparieren und neu einreichen. Falls nicht, dann *sollte* die Apotheke das Rezept analog zum Fall `FEHLER` stornieren (siehe [Transienz von `FEHLER` und `RUECKWEISUNG`][TvFuR]).
 
 
-In der Praxis sollte eigentlich fast ausschließlich Fall 2 auftreten. Fall 1 ist relativ selten und wirft etliche praktische Probleme auf; er gehört besser ganz abgeschafft. Daher die Umbenennung von `RUECKWEISUNG` in `ABGESETZT`.
+In der Praxis sollte eigentlich fast ausschließlich Fall 2 auftreten. Fall 1 ist relativ selten und wirft etliche praktische Probleme auf; er gehört besser ganz abgeschafft. Daher die Umbenennung von `RUECKWEISUNG` in `ABGESETZT`. Last but not least soll gemäß Leitfaden dieser Zustand derzeit gar nicht verwendet werden.
 
 Weitere Details finden sich in den folgenden Artikeln:
 
@@ -45,4 +45,4 @@ Weitere Details finden sich in den folgenden Artikeln:
 <sup>*3) Bei `VERBESSERBAR` war offensichtlich die ursprüngliche Intention, die mögliche Mehrausbeute für die Apotheke auch numerisch zu beziffern. Praktisch gesehen stellt sich diesbezüglich allerdings die Frage, wie zum Beispiel bei einem gefundenen Rabattvertragsverstoß das für eine Rezeptkorrektur avisierte Ausbleiben einer Vollabsetzung numerisch ausgedrückt werden soll ... Der nominelle Erstattungsbetrag des Rezepts kann hier nicht wirklich um einen Betrag X angehoben werden; vielmehr ist __die Vermeidung einer Kürzung um X__ das Ziel der angezeigten Verbesserung.*</sup>
 
 ---
-<sup>*Stand 2023-02-14*</sup>
+<sup>*Stand 2023-03-23*</sup>
