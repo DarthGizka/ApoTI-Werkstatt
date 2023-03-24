@@ -16,7 +16,7 @@ Bei 2) handelt es sich um eine erwartete Statusänderung für eine große Menge 
 
 Bei den anderen Änderungen ist weder der Zeitpunkt noch ihr Eintreten für das AVS vorhersehbar, weswegen gemäß Benjamins hier derzeit die Apotheke auf einem separaten Kanal informiert werden muß. 
 
-Fall 3) hat außerdem die Besonderheit, daß die Spezifikation hierfür die Operation `ladeRueckweisungen` direkt vorsieht (auch wenn sie bislang nur wenig oder gar nicht genutzt wird). Allerdings ergibt sich aufgrund des API-Limits von maximal 300 Datensätzen je Operation das gleiche Problem bzgl. Transaktionsalität bzw. Fortsetzbarkeit wie bei den generellen Statusänderungsabfragen, die in [ladeStatusRezept_GEAENDERTE.md][lSR_G] beschrieben sind.
+Fall 3) hat außerdem die Besonderheit, daß die Spezifikation hierfür die Operation `ladeRueckweisungen` direkt vorsieht (auch wenn sie bislang nur wenig oder gar nicht genutzt wird). Allerdings ergibt sich aufgrund des API-Limits von maximal 300 Datensätzen je Operation das gleiche Problem bzgl. Transaktionsalität bzw. Fortsetzbarkeit wie bei den generellen Statusänderungsabfragen, die in [ladeStatusRezept_GEAENDERTE.md][lSR_G] beschrieben sind. Außerdem ist die Operation `ladeRueckweisungen` derzeit u.a. auch deswegen nicht einsetzbar, weil der Zustand `RUECKWEISUNG` gemäß Leitfaden derzeit nicht verwendet werden soll.
 
 [lSR_G]: ladeStatusRezept_GEAENDERTE.md
 
