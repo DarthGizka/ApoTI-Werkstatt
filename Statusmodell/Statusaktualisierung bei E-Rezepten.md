@@ -2,7 +2,7 @@
 
 Bisher wurde die ApoTI-Schnittstelle vorwiegend für die Muster16-Vorprüfung und für das Einreichen von elektronischen Zusatzdaten für Papierrezepte verwendet. 
 
-Aus diesem Grund war es für die AVS bis jetzt ausreichend¹, genau eine RZ-induzierte Statusänderung wenige Minuten nach Einreichung eines Muster16- oder P-Rezepte zu ermitteln, nämlich die von `VOR_PRUEFUNG` auf einen geprüften Zustand wie `ABRECHENBAR` oder `HINWEIS`. Die übliche Statusabfrage `perLieferID` ca. 10 Minuten nach Einreichung war dafür ausreichend.
+Aus diesem Grund war es für die AVS bis jetzt ausreichend¹, genau eine RZ-induzierte Statusänderung wenige Minuten nach Einreichung eines Muster16- oder P-Rezepte zu ermitteln, nämlich die von `VOR_PRUEFUNG` auf einen geprüften Zustand wie `ABRECHENBAR` oder `HINWEIS`. Die übliche Statusabfrage `perLieferID` ca. 10 Minuten nach Einreichung war dafür ausreichend. Das AVS mußte nur ggf. diese Abfrage solange wiederholen, bis ein Status ungleich `VOR_PRUEFUNG` zurückgeliefert wurde.
 
 Bei E-Rezepten ergeben sich drei neue Arten von Statusänderungen bzw. - im Fall der Änderung auf `ABGERECHNET` - interessieren sich die AVS neuerdings für eine schon länger existierende Statusänderung.
 
@@ -10,9 +10,9 @@ Bei E-Rezepten ergeben sich drei neue Arten von Statusänderungen bzw. - im Fall
 
 2) **im Rahmen der Abrechnung**: Übergang von einem abrechenbaren Zustand in `ABGERECHNET`
 
-3) **nach der Abrechnung**: Übergang von `ABGERECHNET` in `RUECKWEISUNG` oder `FEHLER` aufgrund einer Vollabsetzung durch die Krankenkassen
+3) **nach der Abrechnung**: Übergang von `ABGERECHNET` in `RUECKWEISUNG`² oder `FEHLER` aufgrund einer Vollabsetzung durch die Krankenkassen
 
-Bei 2) handelt es sich um eine erwartete Statusänderung für eine große Menge von Rezepten (alle abrechenbaren Rezepte bis zum einem über ApoTI nicht direkt ermittelbaren Stichzeitpunkt). Aufgrund dieser Besonderheit sind hier effiziente, ressourcenschonende Abfragestrategien möglich, auch ohne Erweiterung von ApoTI um Statusänderungsabfragen.
+Bei 2) handelt es sich um eine erwartete Statusänderung für eine große Menge von Rezepten (alle abrechenbaren Rezepte bis zum einem über ApoTI nicht direkt ermittelbaren Stichzeitpunkt). Aufgrund dieser Besonderheit sind hier effiziente, ressourcenschonende Abfragestrategien³ möglich, auch ohne Erweiterung von ApoTI um Statusänderungsabfragen.
 
 Bei den anderen Änderungen ist weder der Zeitpunkt noch ihr Eintreten für das AVS vorhersehbar, weswegen gemäß Benjamins hier derzeit die Apotheke auf einem separaten Kanal informiert werden muß. 
 
@@ -25,5 +25,7 @@ Fall 3) hat außerdem die Besonderheit, daß die Spezifikation hierfür die Oper
 
 <sup>*2) `RUECKWEISUNG` ist zwar für diesen Fall explizit vorgesehen, ist aber aufgrund der unscharfen Spezifikation und des Verwendungsverbots im Leitfaden derzeit nicht anwendbar. `FEHLER` ist auch ohne Kooperation seitens eines AVS auch jetzt schon direkt verwendbar.*</sup>
 
+<sup>*3) basierend auf der Tatsache, daß zum Abrechnungszeitpunkt __alle__ abrechenbaren Rezepte auf `ABGERECHNET` geändert werden, sofern ihr Lieferzeitpunkt vor den Einsendeschluß für die jeweilige Abrechnung fällt; wenn eine Abfrage für eine Handvoll der ältesten offenen Liefer-Ids diese immer noch als abrechenbar statt `ABGERECHNET` zeigt, dann werden Abfragen für Tausende weitere Liefer-Ids auch kein anderes Ergebnis bringen*</sup>
+
 ---
-Stand 2023-03-23
+Stand 2023-03-24
