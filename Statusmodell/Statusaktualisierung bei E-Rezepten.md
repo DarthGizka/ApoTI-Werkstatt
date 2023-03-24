@@ -12,9 +12,11 @@ Bei E-Rezepten ergeben sich drei neue Arten von Statusänderungen bzw. - im Fall
 
 3) **nach der Abrechnung**: Übergang von `ABGERECHNET` in `RUECKWEISUNG`² oder `FEHLER` aufgrund einer Vollabsetzung durch die Krankenkassen
 
-Bei 2) handelt es sich um eine erwartete Statusänderung für eine große Menge von Rezepten (alle abrechenbaren Rezepte bis zum einem über ApoTI nicht direkt ermittelbaren Stichzeitpunkt). Aufgrund dieser Besonderheit sind hier effiziente, ressourcenschonende Abfragestrategien³ möglich, auch ohne Erweiterung von ApoTI um Statusänderungsabfragen.
+Bei 2) handelt es sich um eine erwartete Statusänderung für eine große Menge von Rezepten (alle abrechenbaren Rezepte bis zum einem über ApoTI nicht direkt ermittelbaren Stichzeitpunkt). Aufgrund dieser Besonderheit sind hier effiziente, ressourcenschonende Abfragestrategien³ möglich, auch ohne Erweiterung von ApoTI um Statusänderungsabfragen. 
 
-Bei den anderen Änderungen ist weder der Zeitpunkt noch ihr Eintreten für das AVS vorhersehbar, weswegen gemäß Benjamins hier derzeit die Apotheke auf einem separaten Kanal informiert werden muß. 
+Bei den anderen Änderungen ist weder der Zeitpunkt noch ihr Eintreten für das AVS vorhersehbar, weswegen hier derzeit die Apotheke auf einem separaten Kanal informiert werden muß. 
+
+Für die Apotheke kann es trotzdem von Vorteil sein, wenn das AVS über ApoTI von diesen Änderungen erfährt und sie dem Apotheker anzeigen kann. Das würde es auch erlauben, daß Apotheker beim Eintreffen einer Information auf separatem Kanal (Papierstück, E-Mail ...) das betreffende Rezept aus der Liste am Bildschirm picken kann und nicht jede einzelne E-Rezept-Id mühselig eintippen & suchen muß.
 
 Fall 3) hat außerdem die Besonderheit, daß die Spezifikation hierfür die Operation `ladeRueckweisungen` direkt vorsieht (auch wenn sie bislang nur wenig oder gar nicht genutzt wird). Allerdings ergibt sich aufgrund des API-Limits von maximal 300 Datensätzen je Operation das gleiche Problem bzgl. Transaktionsalität bzw. Fortsetzbarkeit wie bei den generellen Statusänderungsabfragen, die in [ladeStatusRezept_GEAENDERTE.md][lSR_G] beschrieben sind. Außerdem ist die Operation `ladeRueckweisungen` derzeit u.a. auch deswegen nicht einsetzbar, weil der Zustand `RUECKWEISUNG` gemäß Leitfaden derzeit nicht verwendet werden soll.
 
