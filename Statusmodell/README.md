@@ -5,15 +5,14 @@ Diskussionsbeiträge sollten möglichst bei dem spezifischsten dafür relevanten
 # Hauptartikel
 
 - [Das ApoTI-Statusmodell][ASM]
-- [Abfrage von Statusänderungen: `ladeStatusRezept(GEAENDERTE)`][lSR_G]
 - [Besonderheiten der Statusaktualisierung bei E-Rezepten][BdSbE]
+- [Änderungsabfragen über Sequenznummern][ÄaüSn]
 
 [ASM]: ApoTI-Statusmodell.md
-[lSR_G]: ladeStatusRezept_GEAENDERTE.md
 [BdSbE]: Statusaktualisierung%20bei%20E-Rezepten.md
+[ÄaüSn]: Änderungsabfragen%20über%20Sequenznummern.md
 
 # Nebengeräusche
-
 
 - [(Nicht-)Abrechenbarkeit von `FEHLER`][NAvF]
 - [Transienz von `FEHLER` und `RUECKWEISUNG`][TvFuR]
@@ -24,3 +23,6 @@ Diskussionsbeiträge sollten möglichst bei dem spezifischsten dafür relevanten
 [NAvF]: (Nicht-)Abrechenbarkeit%20von%20FEHLER.md
 [SfaR]: Statuswert%20für%20abgesetzte%20Rezepte.md
 [ZvSä]: Zulässigkeit%20von%20Statusübergängen.md
+
+---
+Stand 2023-05-01
