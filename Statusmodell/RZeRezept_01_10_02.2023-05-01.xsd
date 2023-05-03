@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!-- v1.10 mit Aenderungsabfragen, Stand 2023-05-01 (basiert auf v1.10.01 Stand 2022-01-27) -->
+<xs:schema xmlns:fiverx="http://fiverx.de/spec/abrechnungsservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://fiverx.de/spec/abrechnungsservice" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="apoIk">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{9}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="avsId">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="[\w_]{1,20}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="eMuster16">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:rezeptTyp"/>
+				<xs:element ref="fiverx:muster16Id"/>
+				<xs:element ref="fiverx:kArt"/>
+				<xs:element ref="fiverx:apoIk"/>
+				<xs:element ref="fiverx:rTyp"/>
+				<xs:element ref="fiverx:gesBrutto"/>
+				<xs:element ref="fiverx:zuzahlung"/>
+				<xs:element name="artikel" maxOccurs="9">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:choice>
+								<xs:element ref="fiverx:pzn"/>
+								<xs:element ref="fiverx:hilfsmittelNr"/>
+							</xs:choice>
+							<xs:element ref="fiverx:posNr"/>
+							<xs:element ref="fiverx:faktor"/>
+							<xs:element ref="fiverx:taxe"/>
+							<xs:element name="autidem" type="fiverx:knzTyp" minOccurs="0"/>
+							<xs:element name="vZeile" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value=".{1,128}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="fiverx:abDatum"/>
+				<xs:element ref="fiverx:noctu"/>
+				<xs:element ref="fiverx:vrtrgsArztNr" minOccurs="0"/>
+				<xs:element ref="fiverx:laNr" minOccurs="0"/>
+				<xs:element ref="fiverx:verDat" minOccurs="0"/>
+				<xs:element ref="fiverx:kkIk" minOccurs="0"/>
+				<xs:element ref="fiverx:vrsNr" minOccurs="0"/>
+				<xs:element ref="fiverx:kName" minOccurs="0"/>
+				<xs:element ref="fiverx:vStat" minOccurs="0"/>
+				<xs:element ref="fiverx:vGeb" minOccurs="0"/>
+				<xs:element ref="fiverx:bvg" minOccurs="0"/>
+				<xs:element ref="fiverx:hilf" minOccurs="0"/>
+				<xs:element ref="fiverx:impf" minOccurs="0"/>
+				<xs:element ref="fiverx:sprStBedarf" minOccurs="0"/>
+				<xs:element ref="fiverx:bgrPfl" minOccurs="0"/>
+				<xs:element ref="fiverx:gebFrei" minOccurs="0"/>
+				<xs:element ref="fiverx:unfall" minOccurs="0"/>
+				<xs:element ref="fiverx:unfallTag" minOccurs="0"/>
+				<xs:element ref="fiverx:aUnfall" minOccurs="0"/>
+				<xs:element ref="fiverx:eigBet" minOccurs="0"/>
+				<xs:element ref="fiverx:bediener" minOccurs="0"/>
+				<xs:element ref="fiverx:arbPlatz" minOccurs="0"/>
+				<xs:element ref="fiverx:sonstige" minOccurs="0"/>
+				<xs:element ref="fiverx:vkGueltigBis" minOccurs="0"/>
+				<xs:element name="tRezept" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="tSicherheitsbestimmung" type="fiverx:knzTyp"/>
+							<xs:element name="tFachinformation" type="fiverx:knzTyp"/>
+							<xs:element name="tInLabel" type="fiverx:knzTyp"/>
+							<xs:element name="tOffLabel" type="fiverx:knzTyp"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="eRezept">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:eRezeptId"/>
+				<xs:element name="eRezeptData">
+					<xs:simpleType>
+						<xs:restriction base="xs:base64Binary">
+							<xs:pattern value=".{1,10000000}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="eRezeptId" type="fiverx:eRezeptIdTyp"/>
+	<xs:element name="pRezept">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="pRezeptTyp">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="STANDARDREZEPT"/>
+							<xs:enumeration value="BTM"/>
+							<xs:enumeration value="SPRECHSTUNDENBEDARF"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="fiverx:transaktionsNummer"/>
+				<xs:element ref="fiverx:kArt"/>
+				<xs:element ref="fiverx:apoIk"/>
+				<xs:element ref="fiverx:rTyp"/>
+				<xs:element ref="fiverx:gesBrutto"/>
+				<xs:element ref="fiverx:zuzahlung"/>
+				<xs:element name="pPosition1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="fiverx:pzn"/>
+							<xs:element name="faktor">
+								<xs:simpleType>
+									<xs:restriction base="xs:int">
+										<xs:pattern value="\d{1,6}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="fiverx:taxe"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="pCharge" minOccurs="1" maxOccurs="99">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="herstellerSchluessel">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="\d{1}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="herstellerNr">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="\d{9}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="herstellungsDatum" type="xs:dateTime"/>
+							<xs:element name="chargenNr">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="\d{2}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="anzahlApplikationen">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="\d{2}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="pWirkstoff" minOccurs="0" maxOccurs="999">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="fiverx:pzn"/>
+										<xs:element name="pPosNr">
+											<xs:simpleType>
+												<xs:restriction base="xs:integer">
+													<xs:pattern value="\d{1,3}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="wirkstoffName" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:pattern value=".{1,128}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="notiz" minOccurs="0">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:pattern value=".{1,128}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element ref="fiverx:faktor"/>
+										<xs:element name="faktorKennzeichen">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:pattern value="\d{2}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element ref="fiverx:taxe"/>
+										<xs:element name="preisKennzeichen">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:pattern value="\d{2}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="fiverx:abDatum"/>
+				<xs:element name="erstellungsZeitpunkt" type="xs:dateTime"/>
+				<xs:element name="hashCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{40}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="fiverx:noctu"/>
+				<xs:element ref="fiverx:vrtrgsArztNr" minOccurs="0"/>
+				<xs:element ref="fiverx:laNr" minOccurs="0"/>
+				<xs:element ref="fiverx:verDat" minOccurs="0"/>
+				<xs:element ref="fiverx:kkIk" minOccurs="0"/>
+				<xs:element ref="fiverx:vrsNr" minOccurs="0"/>
+				<xs:element ref="fiverx:kName" minOccurs="0"/>
+				<xs:element ref="fiverx:vStat" minOccurs="0"/>
+				<xs:element ref="fiverx:vGeb" minOccurs="0"/>
+				<xs:element ref="fiverx:bvg" minOccurs="0"/>
+				<xs:element ref="fiverx:sprStBedarf" minOccurs="0"/>
+				<xs:element ref="fiverx:gebFrei" minOccurs="0"/>
+				<xs:element ref="fiverx:bediener" minOccurs="0"/>
+				<xs:element ref="fiverx:arbPlatz" minOccurs="0"/>
+				<xs:element ref="fiverx:sonstige" minOccurs="0"/>
+				<xs:element ref="fiverx:vkGueltigBis" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="faktor">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:pattern value="\d{1,6}(\.\d{1,6})?"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="fCode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{3}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="fKommentar">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="(.|\r|\n){1,512}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="fWert">
+		<xs:simpleType>
+			<xs:restriction base="xs:decimal">
+				<xs:pattern value="-?\d{1,7}\.\d{2}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="gesBrutto" type="fiverx:betragTyp"/>
+	<xs:element name="hilfsmittelNr">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{10}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="muster16Id">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{9}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="posNr">
+		<xs:simpleType>
+			<xs:restriction base="xs:integer">
+				<xs:pattern value="[1-9]"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="pzn">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{8}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="retHeader">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:rzKdNr"/>
+				<xs:element name="rzIk">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="\d{9}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="fiverx:apoIk"/>
+				<xs:element ref="fiverx:test" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rezeptStatus">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="ALLE"/>
+				<xs:enumeration value="BEANSTANDETE"/>
+				<xs:enumeration value="FEHLER"/>
+				<xs:enumeration value="VERBESSERBAR"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="rzeDienste">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:retHeader"/>
+				<xs:element name="u4">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:boolean">
+								<xs:attribute name="kunde" type="xs:boolean"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="u5">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="u5_1">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:boolean">
+											<xs:attribute name="kunde" type="xs:boolean"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="u5_2">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:boolean">
+											<xs:attribute name="kunde" type="xs:boolean"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="u6">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="u6_1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="asynchron">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:boolean">
+														<xs:attribute name="kunde" type="xs:boolean"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="synchron">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:boolean">
+														<xs:attribute name="kunde" type="xs:boolean"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="u1">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:boolean">
+														<xs:attribute name="kunde" type="xs:boolean"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="u6_2">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="synchron">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:boolean">
+														<xs:attribute name="kunde" type="xs:boolean"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="asynchron">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:boolean">
+														<xs:attribute name="kunde" type="xs:boolean"/>
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeLeistung">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="rzLeistungHeader">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="fiverx:sendHeader"/>
+							<xs:element name="sndId">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="\d{1,10}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="rzLeistungInhalt" maxOccurs="300">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="eLeistungHeader">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="fiverx:avsId"/>
+										<xs:element name="aPeriode" type="xs:gMonthDay" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="eLeistungBody">
+								<xs:complexType>
+									<xs:choice>
+										<xs:element ref="fiverx:eRezept"/>
+										<xs:element ref="fiverx:eMuster16"/>
+										<xs:element ref="fiverx:pRezept"/>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeLeistungStatus">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:retHeader"/>
+				<!--{ neu fuer Aenderungsabfragen (dort Pflichtangabe!) -->
+				<xs:element name="hoechsteEnthalteneSequenznummer" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:pattern value="[1-9]\d{0,13}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="weitereAenderungenVorhanden" type="xs:boolean" minOccurs="0"/>
+				<!--} neu fuer Aenderungsabfragen -->
+				<xs:element name="statusUpd" maxOccurs="300">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="eRezeptStatus">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="fiverx:avsId"/>
+										<xs:element ref="fiverx:eRezeptId"/>
+										<xs:element name="status" type="fiverx:eStatus"/>
+										<xs:element ref="fiverx:rzLieferId"/>
+										<xs:element ref="fiverx:statusInfo" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="muster16Status">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="fiverx:avsId"/>
+										<xs:element ref="fiverx:muster16Id"/>
+										<xs:element name="m16Status">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="VOR_PRUEFUNG"/>
+													<xs:enumeration value="FEHLER"/>
+													<xs:enumeration value="VERBESSERBAR"/>
+													<xs:enumeration value="ABRECHENBAR"/>
+													<xs:enumeration value="HINWEIS"/>
+													<xs:enumeration value="STORNIERT"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element ref="fiverx:rzLieferId" minOccurs="0"/>
+										<xs:element ref="fiverx:statusInfo" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="eRezeptVorpruefungStatus">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="fiverx:avsId"/>
+										<xs:element ref="fiverx:eRezeptId"/>
+										<xs:element name="vStatus">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="VOR_PRUEFUNG"/>
+													<xs:enumeration value="FEHLER"/>
+													<xs:enumeration value="VERBESSERBAR"/>
+													<xs:enumeration value="ABRECHENBAR"/>
+													<xs:enumeration value="HINWEIS"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element ref="fiverx:rzLieferId" minOccurs="0"/>
+										<xs:element ref="fiverx:statusInfo" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="pRezeptStatus">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="fiverx:avsId"/>
+										<xs:element ref="fiverx:transaktionsNummer"/>
+										<xs:element ref="fiverx:erstellungsJahr"/>
+										<xs:element name="p16Status" type="fiverx:eStatus"/>
+										<xs:element ref="fiverx:rzLieferId" minOccurs="0"/>
+										<xs:element ref="fiverx:statusInfo" minOccurs="0" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeParamDienste">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:sendHeader"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeParamLaden">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:sendHeader"/>
+				<xs:choice>
+					<xs:element name="perRezept">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="fiverx:eRezeptId"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="perIntervall">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="vonDatum" type="xs:date"/>
+								<xs:element name="bisDatum" type="xs:date"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeParamLadeVersion">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:sendHeader"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeParamStatus">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:sendHeader"/>
+				<xs:choice>
+					<xs:element name="perRezeptID">
+						<xs:complexType>
+							<xs:choice>
+								<xs:element ref="fiverx:eRezeptId"/>
+								<xs:sequence>
+									<xs:element ref="fiverx:transaktionsNummer"/>
+									<xs:element ref="fiverx:erstellungsJahr"/>
+								</xs:sequence>
+								<xs:element ref="fiverx:muster16Id"/>
+								<xs:element name="eRezeptIdPruef" type="fiverx:eRezeptIdTyp"/>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="perLieferID">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="fiverx:rzLieferId"/>
+								<xs:element ref="fiverx:rezeptStatus"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="perStatus">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element ref="fiverx:rezeptStatus"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<!--{ neu fuer Aenderungsabfragen -->
+					<xs:element name="geaenderte">
+						<xs:complexType>
+							<xs:choice>
+								<!-- 'seit', weil inklusiv; 'Zeitpunkt', weil auch Sequenznummer moeglich waere -->
+								<xs:element name="seitZeitpunkt" type="xs:dateTime"/>
+								<!-- 'nach', weil exklusiv; 'Sequenznummer', weil auch Zeitpunkt moeglich waere -->
+								<xs:element name="nachSequenznummer">
+									<xs:simpleType>
+										<xs:restriction base="xs:integer">
+											<xs:pattern value="0|[1-9]\d{0,13}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+					<!--} neu fuer Aenderungsabfragen -->
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeParamStorno">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:sendHeader"/>
+				<xs:choice>
+					<xs:element ref="fiverx:eRezeptId"/>
+					<xs:sequence>
+						<xs:element ref="fiverx:transaktionsNummer"/>
+						<xs:element ref="fiverx:erstellungsJahr"/>
+					</xs:sequence>
+					<xs:element ref="fiverx:muster16Id"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeParamVersion">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:versionNr"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzePruefung">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:sendHeader"/>
+				<xs:element name="rzPruefungBody">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="fiverx:avsId"/>
+							<xs:element name="pruefModus">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="SYNCHRON"/>
+										<xs:enumeration value="ASYNCHRON"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:choice>
+								<xs:element ref="fiverx:eMuster16"/>
+								<xs:element ref="fiverx:eRezept"/>
+							</xs:choice>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeQuittung">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:retHeader"/>
+				<xs:element name="bodyQuittung">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="rzDatum" type="xs:dateTime"/>
+							<xs:element ref="fiverx:rzLieferId"/>
+							<xs:element name="rezeptIds">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="id" maxOccurs="300">
+											<xs:complexType>
+												<xs:choice>
+													<xs:element name="eRezeptId" type="fiverx:eRezeptIdTyp"/>
+													<xs:element ref="fiverx:muster16Id"/>
+													<xs:sequence>
+														<xs:element ref="fiverx:transaktionsNummer"/>
+														<xs:element ref="fiverx:erstellungsJahr"/>
+													</xs:sequence>
+													<xs:element name="rezeptIDAblehnung">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:choice>
+																	<xs:element ref="fiverx:muster16Id"/>
+																	<xs:sequence>
+																		<xs:element ref="fiverx:transaktionsNummer"/>
+																		<xs:element ref="fiverx:erstellungsJahr"/>
+																	</xs:sequence>
+																	<xs:element name="eRezeptId" type="fiverx:eRezeptIdTyp"/>
+																</xs:choice>
+																<xs:element name="statusInfoQuittung">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element ref="fiverx:fCode"/>
+																			<xs:element name="istStatus" type="fiverx:eStatus"/>
+																			<xs:element ref="fiverx:fKommentar" minOccurs="0"/>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:choice>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="rzAnzLeistung" type="xs:int"/>
+							<xs:element name="vorAbrTermin" type="xs:date" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeRetLeistung">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:retHeader"/>
+				<xs:element name="rzRetLeistungInhalt" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="fiverx:eRezept"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeRetPruefung">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element ref="fiverx:rzeQuittung"/>
+				<xs:element ref="fiverx:rzeLeistungStatus"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeRetStorno">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:retHeader"/>
+				<xs:element name="eStorno">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="ABGERECHNET"/>
+							<xs:enumeration value="STORNIERT"/>
+							<xs:enumeration value="VOR_ABRECHNUNG"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice>
+					<xs:element ref="fiverx:eRezeptId"/>
+					<xs:sequence>
+						<xs:element ref="fiverx:transaktionsNummer"/>
+						<xs:element ref="fiverx:erstellungsJahr"/>
+					</xs:sequence>
+					<xs:element ref="fiverx:muster16Id"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeRueckweisungen">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="rueckweisungCont">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="rueckweisung" type="xs:base64Binary" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzeVersion">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="uVersion" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="fiverx:versionNr"/>
+							<xs:element name="gracePeriod" type="xs:gYearMonth"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rzKdNr">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value=".{1,47}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="rzLieferId">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\w{1,40}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="sendHeader">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:rzKdNr"/>
+				<xs:element name="avsSw">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="hrst">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value=".{1,128}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="nm">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value=".{1,128}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="vs">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value=".{1,64}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="fiverx:apoIk"/>
+				<xs:element ref="fiverx:test" minOccurs="0"/>
+				<xs:element name="pw" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value=".{6,50}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="statusInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="fiverx:fCode"/>
+				<xs:element name="fStatus">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="HINWEIS"/>
+							<xs:enumeration value="VERBESSERBAR"/>
+							<xs:enumeration value="FEHLER"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="fiverx:fKommentar" minOccurs="0"/>
+				<xs:element ref="fiverx:fWert" minOccurs="0"/>
+				<xs:element name="fristEnde" type="xs:dateTime" minOccurs="0"/>
+				<xs:element name="fFachlich" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="fThemaCode">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="fTCode">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:pattern value="\d{2}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element ref="fiverx:posNr" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="fKurzText">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="(.|\r|\n){1,256}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="fLangText" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:pattern value="(.|\r|\n){1,256}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="fHauptFehler" type="xs:boolean" minOccurs="0"/>
+							<xs:element name="fVerbesserung" minOccurs="0">
+								<xs:complexType>
+									<xs:choice>
+										<xs:element ref="fiverx:zuzahlung"/>
+										<xs:element ref="fiverx:gesBrutto"/>
+										<xs:element name="fArtikel">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element ref="fiverx:faktor" minOccurs="0"/>
+													<xs:element ref="fiverx:taxe" minOccurs="0"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="taxe" type="fiverx:betragTyp"/>
+	<xs:element name="test" type="xs:boolean"/>
+	<xs:element name="versionNr">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{2}\.\d{2}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="zuzahlung" type="fiverx:betragTyp"/>
+	<xs:simpleType name="betragTyp">
+		<xs:restriction base="xs:decimal">
+			<xs:pattern value="\d{1,9}\.\d{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="eRezeptIdTyp">
+		<xs:restriction base="xs:string">
+			<xs:pattern value=".{1,50}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="eStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="VOR_PRUEFUNG"/>
+			<xs:enumeration value="VOR_ABRECHNUNG"/>
+			<xs:enumeration value="FEHLER"/>
+			<xs:enumeration value="VERBESSERBAR"/>
+			<xs:enumeration value="RUECKWEISUNG"/>
+			<xs:enumeration value="ABGERECHNET"/>
+			<xs:enumeration value="STORNIERT"/>
+			<xs:enumeration value="HINWEIS"/>
+			<xs:enumeration value="ABRECHENBAR"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="knzTyp">
+		<xs:restriction base="xs:byte">
+			<xs:pattern value="[0-2]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="kArt">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{2,3}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="rTyp">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="GKV"/>
+				<xs:enumeration value="PKV"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="abDatum" type="xs:date"/>
+	<xs:element name="noctu" type="fiverx:knzTyp"/>
+	<xs:element name="vrtrgsArztNr">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{5,9}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="laNr">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{9}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="verDat" type="xs:date"/>
+	<xs:element name="kkIk">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{9}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="vrsNr">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\w{5,12}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="kName">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value=".{1,47}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="vStat">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\w{7}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="vGeb" type="xs:date"/>
+	<xs:element name="bvg" type="fiverx:knzTyp"/>
+	<xs:element name="hilf" type="fiverx:knzTyp"/>
+	<xs:element name="impf" type="fiverx:knzTyp"/>
+	<xs:element name="sprStBedarf" type="fiverx:knzTyp"/>
+	<xs:element name="bgrPfl" type="fiverx:knzTyp"/>
+	<xs:element name="gebFrei" type="fiverx:knzTyp"/>
+	<xs:element name="unfall" type="fiverx:knzTyp"/>
+	<xs:element name="unfallTag" type="xs:date"/>
+	<xs:element name="aUnfall" type="fiverx:knzTyp"/>
+	<xs:element name="eigBet" type="fiverx:betragTyp"/>
+	<xs:element name="bediener">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value=".{1,47}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="arbPlatz">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value=".{1,47}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="sonstige" type="fiverx:knzTyp"/>
+	<xs:element name="vkGueltigBis" type="xs:gYearMonth"/>
+	<xs:element name="transaktionsNummer">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{9}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="rezeptTyp">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="STANDARDREZEPT"/>
+				<xs:enumeration value="BTM"/>
+				<xs:enumeration value="SPRECHSTUNDENBEDARF"/>
+				<xs:enumeration value="TREZEPT"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="erstellungsJahr">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{4}"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+</xs:schema>
