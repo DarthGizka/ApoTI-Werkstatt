@@ -1,4 +1,4 @@
-# Änderungsabfragen über Sequenznummern
+﻿# Änderungsabfragen über Sequenznummern
 
 <sup>Stand 2023-05-01</sup>
 
@@ -91,7 +91,7 @@ RZs können natürlich für sich den Wertebereich problemlos auf 31 oder 32 Bit 
 		<xs:sequence>
 			<xs:element ref="fiverx:retHeader"/>
 			<!--{ neu für Änderungsabfragen -->
-			<xs:element name="hoechsteEnthalteneSequenznummer">
+			<xs:element name="hoechsteEnthalteneSequenznummer" minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:integer">
 						<xs:pattern value="[1-9]\d{0,13}"/>
