@@ -41,7 +41,7 @@ RZs können natürlich für sich den Wertebereich problemlos auf 31 oder 32 Bit 
 
 Apothekenseitig muß nur jeweils eine Sequenznummer - also die Hochwassermarke aus der letzten Antwort - abgespeichert werden, nicht eine Sequenznummer je Rezept wie im RZ. Daher ist der Speicherplatzbedarf für Sequenznummern auf Apothekenseite weitgehend irrelevant.
 
-NB: Änderungsabfragen berichten grundsätzlich alle Statusänderungen, ohne Ausnahme. Die bisher üblichen Statusabfragen `perLieferID` sind daher nach Umstellung auf Änderungsabfragen für den Routinebetrieb weitgehend entbehrlich. Andersherum ausgedrückt: an die Stelle der üblichen zehnminütlichen Statusabfragen `perLieferID` für die Lieferungen der letzten 10 Minuten tritt dann 1 Änderungsabfrage, welche dann außer den gleichen Rezepten wie vorstehend auch noch alle anderen zwischenzeitlichen erfolgten Statusänderungen zurückgibt.
+NB: Änderungsabfragen berichten grundsätzlich alle Statusänderungen, ohne Ausnahme. Die bisher üblichen Statusabfragen `perLieferID` sind daher nach Umstellung auf Änderungsabfragen für den Routinebetrieb weitgehend entbehrlich. Andersherum ausgedrückt: an die Stelle der üblichen zehnminütlichen Statusabfragen `perLieferID` für die Lieferungen der letzten 10 Minuten tritt i.d.R. genau 1 Änderungsabfrage, welche dann außer den gleichen Rezepten wie vorstehend auch noch alle anderen zwischenzeitlichen erfolgten Statusänderungen zurückgibt.
 
 ---
 ## DIVERSE DETAILASPEKTE
