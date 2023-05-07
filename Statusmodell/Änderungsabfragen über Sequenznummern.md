@@ -1,6 +1,6 @@
 ﻿# Änderungsabfragen über Sequenznummern
 
-<sup>Stand 2023-05-01</sup>
+<sup>Stand 2023-05-07</sup>
 
 Hauptnachteil der in `ladeStatusRezept(perStatus: GEAENDERTE)` skizzierten Lösung ist, daß dort der Zustand der Iteration über die Statusänderungen vom Server verwaltet wird. Dadurch sind Änderungsabfragen nicht idempotent, sondern verändern den Zustand des Servers. Außerdem kann so nur eine einzige Gegenstelle überhaupt Änderungsabfragen durchführen.
 
@@ -19,7 +19,11 @@ rzeLeistungStatus
    statusUpd[300] ...
 ```
 
-Der Server vergibt bei jeder Statuszuweisung eine monoton wachsende Sequenznummer, die zusammen mit dem Statuswert abgespeichert wird. Die durch diese Nummer geordnete Folge der Statusänderungen kann dann von beliebig vielen Gegenstellen unabhängig voneinander durch Angabe der Leseposition schubweise abgerufen werden. Die Antworten enthalten zusätzlich zum bisherigen Ergebnis jeweils die höchste Änderungsnummer (`hoechsteEnthalteneSequenznummer`). Diese Hochwassermarke kann dann direkt als Parameter `nachSequenznummer` einer anschließenden Änderungsabfrage verwendet werden.
+Der Server vergibt bei jeder Statuszuweisung eine monoton wachsende Sequenznummer, die zusammen mit dem Statuswert im Rezeptsatz abgespeichert wird. Dadurch stehen die aufliegenden Rezepte datenbanktechnisch auch als eine in Reihenfolge der Statusänderungen geordnete Folge zur Verfügung, die von beliebig vielen Gegenstellen unabhängig voneinander durch Angabe der Leseposition schubweise abgerufen werden kann. 
+
+Das Protokoll begrenzt dabei die Anzahl der Datensätze in den Antworten a priori schon auf 300, so daß bei Änderungsabfragen keine Angaben zu Limits oder Obergrenzen mitgegeben werden müssen.
+
+Die Antworten enthalten zusätzlich zum bisherigen Ergebnis jeweils die höchste Änderungsnummer (`hoechsteEnthalteneSequenznummer`). Diese Hochwassermarke kann dann direkt als Parameter `nachSequenznummer` einer anschließenden Änderungsabfrage verwendet werden.
 
 Abspeichern der Sequenznummer zusammen mit dem Statuswert im Rezeptsatz garantiert, daß die dadurch induzierte Folge keine schalen/veralteten Werte enthalten kann. Jedes Rezept tritt höchstens ein Mal in der Folge auf; bei Statusänderungen ändert sich lediglich die Position innerhalb der Folge (i.e. im zugehörigen Index). Damit reflektiert jeder im Ergebnis enthaltene Statuswert jeweils den aktuellsten Stand; das macht im AVS den Abgleich mit den vorhandenen Daten deutlich unkomplizierter, als es ohne diese Garantie der Fall wäre. 
 
@@ -33,7 +37,11 @@ Als Wertebereich für die Sequenznummern empfiehlt sich 1 bis 10^14 - 1, entspre
 
 Damit ist eine serverweite - also zugangsübergreifende - Sequenzzählung auch für große RZ uneingeschränkt möglich; es ist mehr als ausreichend, um die Statusänderungen für alle Rezepte bundesweit für Tausende von Jahren zu numerieren. Die Beschränkung auf 14 Stellen erlaubt auch eine verlustfreie Darstellung als Currency (Limit 10^14 - 1 für den ganzzahligen Anteil) oder Double (ULP ≤ 1 bis 2^53, also ca. 9e15), so daß solche Sequenznummern auch Teilsysteme ohne Unterstützung von 64-Bit-Ganzzahlen verlustfrei/unverfälscht durchlaufen können.
 
-RZs können natürlich für sich den Wertebereich problemlos auf 31 oder 32 Bit beschränken, da sie ja die Sequenznummern selber vergeben. Aber das Protokollformat muß auch für große RZ genügend Raum lassen.
+RZs können natürlich für sich den Wertebereich problemlos auf 31 oder 32 Bit beschränken, da sie ja die Sequenznummern selber vergeben. Aber das Protokollformat muß auch für große RZ genügend Raum lassen. 
+
+Apothekenseitig muß nur jeweils eine Sequenznummer - also die Hochwassermarke aus der letzten Antwort - abgespeichert werden, nicht eine Sequenznummer je Rezept wie im RZ. Daher ist der Speicherplatzbedarf für Sequenznummern auf Apothekenseite weitgehend irrelevant.
+
+NB: Änderungsabfragen berichten grundsätzlich alle Statusänderungen, ohne Ausnahme. Die bisher üblichen Statusabfragen `perLieferID` sind daher nach Umstellung auf Änderungsabfragen für den Routinebetrieb weitgehend entbehrlich. Andersherum ausgedrückt: an die Stelle der üblichen zehnminütlichen Statusabfragen `perLieferID` für die Lieferungen der letzten 10 Minuten tritt dann 1 Änderungsabfrage, welche dann außer den gleichen Rezepten wie vorstehend auch noch alle anderen zwischenzeitlichen erfolgten Statusänderungen zurückgibt.
 
 ---
 ## DIVERSE DETAILASPEKTE
@@ -108,7 +116,7 @@ RZs können natürlich für sich den Wertebereich problemlos auf 31 oder 32 Bit 
 </xs:element>
 ```
 
-NB: es sollte erwogen werden, das Element `weitereAenderungenVorhanden` zum Pflichtelement zu machen. Unterm Strich würde dadurch das Protokoll einfacher und robuster, insbesondere aus Sicht des AVS. Gleiches gilt für die Unterstützung der Abfragevariante `seitZeitstempel`.
+NB: es sollte erwogen werden, das Element `weitereAenderungenVorhanden` bei Änderungsabfragen zum Pflichtfeld zu machen. Unterm Strich würde dadurch das Protokoll einfacher und robuster, insbesondere aus Sicht des AVS. Ähnliches gilt für die Unterstützung der Abfragevariante `seitZeitstempel`.
 
 ## Zusätzliche verbale Protokollfestlegungen
 
@@ -211,3 +219,34 @@ CPU- und I/O-Last waren bei gleicher Zahl der Anfragen und gleicher Größe der 
 Die Aktualisierung der (zugangsbezogenen) Sequenznummern und der zugehörigen Zeitstempel wurde über einen einfachen INSERT-/UPDATE-Trigger realisiert. Dadurch waren keinerlei Eingriffe in existierende Abfragen im ApoTI-Teil des Servers nötig.
 
  Die einzige Komplikation war die Notwendigkeit, serverinterne Teilbereiche (Prüfung, Zapfenstreich usw.) auf potentiell zugangsübergreifende statusändernde Massentransaktionen durchzusehen, zwecks Hinzufügen des Aufrufs einer Stored Procedure für die Massensperre (gegenseitiger Ausschluß zwecks Deadlock-Vermeidung).
+
+Konkrete Performancewerte stehen nur für meine MSSQL-Implementierung zur Verfügung, wo ich für jede einzelne Abfrage die Instrumentierung über `SET STATISTICS IO` C#-seitig separat schalten kann. 
+
+Eine bei 0 beginnende Abfragekette für alle aufliegenden Rezepte einer guten Apotheke (ca. 1 Jahr) ergab dort folgende Werte:
+
+```
+83 ms für 168 Abfragen mit insgesamt 50368 Rezepten -> 2026 Abfragen/s, 607334 Rp/s
+STATISTICS IO: 1209 Logical Reads für 168 Abfragen -> 7,20/Abfrage
+```
+
+Für die Abfragen über ApoTI sind diese Zahlen natürlich wenig aussagekräftig, da dort noch die Rundreisezeiten im Internet und Zeit für die Verarbeitung im AVS dazukommen, sowie 1-2 ms für den HTTPS-, SOAP- und XML-Overhead im Server. Die Zahlen geben aber gut an, in welchem Maß diese Abfragen zur Serverlast beitragen. 
+
+Abruf der gleichen Information via `perLieferID` würde 12433 ApoTI-Aufrufe erfordern und 51949 Datensätze ergeben. Das sind 1581 Datensätze mehr, weil erneut eingereichte Rezepte nicht nur in ihrer eigenen Lieferung erscheinen, sondern auch in der Lieferung desjenigen Rezepts, das sie ersetzen.
+
+Die Abfrage sieht so aus:
+
+```sql
+select top 301
+	status_lsn,
+	rezepttyp,    -- 'e', 'm' oder 'p' (könnte auch am Wertebereich der Rezept-Id abgelesen werden)
+	rezept_id,    -- Einheiz-Id (BigInt) für E-, M- und P-Rezepte
+	rezeptstatus,
+	avs_id,
+	rz_liefer_id
+	from sv4.Rezept with (SERIALIZABLE)
+	where klient_id = @KlientId and status_lsn > @SeqNr
+		and hinfaellig = 0
+	order by 1;
+```
+
+`SERIALIZABLE` ist notwendig, weil MSSQL bei schwächerer Isolierung grundsätzlich keine korrekten, konsistenten Ergebnisse garantiert. Das Limit ist 301 statt 300, damit das Feld `weitereAenderungenVorhanden` in der Antwort gesetzt werden kann; der 301. Datensatz wird dann jeweils weggeworfen.
