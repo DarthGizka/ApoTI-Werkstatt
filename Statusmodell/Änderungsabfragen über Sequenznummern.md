@@ -1,6 +1,6 @@
 ﻿# Änderungsabfragen über Sequenznummern
 
-<sup>Stand 2023-05-07</sup>
+<sup>Stand 2023-05-12</sup>
 
 Hauptnachteil der in `ladeStatusRezept(perStatus: GEAENDERTE)` skizzierten Lösung ist, daß dort der Zustand der Iteration über die Statusänderungen vom Server verwaltet wird. Dadurch sind Änderungsabfragen nicht idempotent, sondern verändern den Zustand des Servers. Außerdem kann so nur eine einzige Gegenstelle überhaupt Änderungsabfragen durchführen.
 
@@ -145,6 +145,8 @@ Die Unterstützung von Änderungsabfragen durch einen Server kann auch ohne Anpa
 Die Antwort ist ein SOAP-Fault mit Fehlercode ApoTI:001 ('XML nicht valide') oder ApoTI:003 ('Service nicht unterstützt'), sofern der Server die Variante nicht unterstützt. 
 
 Im positiven Fall kommen entweder Datensätze zurück oder ein SOAP-Fault mit Code ApoTI:004 ('Keine Daten vorhanden'). Bei gezielter Wahl der Parameter - i.e. 10^14 - 1 als Sequenznummer oder ein in der Zukunft liegender Zeitstempel - kann man mit Sicherheit davon ausgehen, daß die Ergebnismenge leer ist bzw. zum Ausdruck bringen, daß die Abfrage zur Sondierung der Unterstützung dient und nicht von einer aus dem Tritt gekommenen Verwaltungslogik verursacht wurde.
+
+NB: Bei Hinzufügen eines neuen Feldes zur Antwortstruktur von `ladeRzDienste` wäre diese Struktur nicht mehr mit dem aktuellen XML-Schema des Protokolls kompatibel. Die Aufnahme eines neuen Feldes in die Struktur würde also zwingend ein Hochzählen der Protokollversion erfordern,damit existierende Klienten unverändert weiter funktionieren können. Beim weiter oben genannten Verfahren gibt es diesen Nachteil nicht; ein aktualisierter Klient sondiert die Verfügbarkeit von Änderungsabfragen durch aktive Benutzung, und sowohl unveränderte als auch aktualisierte Server wissen genau, was sie jeweils zu antworten haben.
 
 ## Warum Sequenznummern (Ganzzahlen) anstelle von Zeitstempeln?
 
