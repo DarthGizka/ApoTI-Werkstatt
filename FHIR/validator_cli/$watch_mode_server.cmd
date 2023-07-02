@@ -12,6 +12,7 @@ goto _done
 :_ERezept2023Q2
 
 set @@IGS=^
+ -ig dav.kbv.sfhir.cs.vs#1.0.6 ^
  -ig de.basisprofil.r4#0.9.13 ^
  -ig de.abda.erezeptabgabedatenbasis#1.2.0 ^
  -ig kbv.basis#1.1.3 ^
@@ -26,6 +27,7 @@ goto _PlainCoreR4
 :_ERezept2023Q3
 
 set @@IGS=^
+ -ig dav.kbv.sfhir.cs.vs#1.0.7 ^
  -ig de.basisprofil.r4#1.3.2 ^
  -ig de.abda.erezeptabgabedatenbasis#1.3.1 ^
  -ig kbv.basis#1.3.0 ^
