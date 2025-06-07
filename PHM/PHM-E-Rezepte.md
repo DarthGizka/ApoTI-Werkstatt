@@ -53,7 +53,7 @@ Die Belegwerte für Mehrkosten und Patientenanteil ergeben sich dann ganz normal
 
 ### Beihilfe vs. Beihilfe
 
-Nach dem Konzept des Beihilfefalles im Sinne von § 4 Absatz 4 des seit 01.06.2025 gültigen Vertrages zahlt die Kasse 50% des erstattungsfähigen Betrages, also derzeit maximal 21,- € wg. der Deckelung des erstattungsfähigen Betrages auf 42,- €. Das ist eine direkte Umsetzung von [§ 28 (2) SGB XI][SGB11_28_2].
+Nach dem Konzept des Beihilfefalles im Sinne von § 4 Absatz 4 des [seit 01.06.2025 gültigen Vertrages][Vertrag] zahlt die Kasse 50% des erstattungsfähigen Betrages, also derzeit maximal 21,- € wg. der Deckelung des erstattungsfähigen Betrages auf 42,- €. Das ist eine direkte Umsetzung von [§ 28 (2) SGB XI][SGB11_28_2].
 
 Praktisch gesehen können einige Formen der Beihilfe aber auch eine Vollerstattung bis zur Grenze von 42,- € vorsehen, wie z.B. [im Fall des Bundesversorgungsamtes][BVA].
 
@@ -61,6 +61,7 @@ Praktisch gesehen können einige Formen der Beihilfe aber auch eine Vollerstattu
 
 [BVA]: https://www.bva.bund.de/DE/Services/Bundesbedienstete/Gesundheit-Vorsorge/Beihilfe/4_Beihilfeanspruch/41_Beihilfeberechtigte/5_Pflegebeduerftige/56_Leistungen_Pflegebeduerftige/566_Pflegehilfsmittel/566_pflegehilfsmittel.html
 
+[Vertrag]: https://www.gkv-spitzenverband.de/media/dokumente/pflegeversicherung/phm_vertraege/2025-06-01_PHM_Vertrag_mit_Verband-Vertragstext_AC-TK_11-00-P53.pdf
 ---
 
 ### Übermittlung des Zuzahlungsstatus
@@ -77,7 +78,7 @@ Wem das zu heikel ist, der kann im Fall der Zuzahlungspflichtigkeit diese über 
 
 ### Vertragskonforme Preisermittlung und Datenübermittlung nach § 302 SGB V
 
-Laut Vertrag erfolgt die Preisermittlung durch Multiplizieren eines Nettopreises mit der Stückzahl bzw. der Anzahl der 100-ml-Einheiten, gefolgt vom Aufschlagen der Umsatzsteuer. Die Nettopreise sind dabei mit 2 Nachkommastellen angegben, also auf ganze Cent.
+Laut [Vertrag][Vertrag] erfolgt die Preisermittlung durch Multiplizieren eines Nettopreises mit der Stückzahl bzw. der Anzahl der 100-ml-Einheiten, gefolgt vom Aufschlagen der Umsatzsteuer. Die Nettopreise sind dabei mit 2 Nachkommastellen angegben, also auf ganze Cent.
 
 NB: in der [FAQ-Liste des GKV-Spitzenverbandes][FAQ] gibt es an mehreren Stellen eine gleichlautende Festlegung. Bei der Frage 'Wie ist mit Rundungsdifferenzen umzugehen?' gibt es zwar scheinbar eine anderslautende Angabe (
 `Bruttobetrag = (Einzelbetrag mit zwei Nachkommastellen + (ggfs.) MwSt.-Betrag) * Menge`), aber das ist möglicherweise nur eine unglücklich formulierte Empfehlung, durch Rechnen mit erhöhter Genauigkeit ein sachlich falsches Berechnungsmodell eventuell noch zu retten.
