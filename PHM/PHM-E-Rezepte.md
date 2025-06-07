@@ -23,10 +23,6 @@ In Ermangelung von *belegbezogenen* Feldern für den Patientenanteil im Beihilfe
 
 So wäre es zum Beipiel auch möglich, die Gesamtwerte für Mehrkosten und/oder Beihilfe-Patientenanteil an eine beliebige Positionszeile anzuhängen, selbst wenn diese Gesamtwerte den Bruttowert dieser Position übersteigen. In extremis könnte man sogar die Mehrkosten und den Beihilfe-Patientenanteil als Text in irgendwelche Freitextfelder stopfen; das hätte zwar nicht übermäßig viel Sinn, aber es wäre zulässig.
 
-Die sinnvollste Übergangslösung wäre sicher eine Festlegung, bei Pflegehilfsmitteln zum Verbrauch die vorhandenen positionsgebundenen Felder für Mehrkosten und Beihilfe-Patientenanteil (a.k.a. 'Eigenbeteiligung § 27a') grundsätzlich als belegbezogen zu betrachten, ohne wertmäßigen Bezug zur enthaltenden Position. 
-
-Die Belegwerte für Mehrkosten und Patientenanteil ergeben sich dann ganz normal durch Summieren der in den Positionen vorgefundenen Werte, so daß sowohl die Strategie 'alles an die erste Position dranhängen' als auch das sinnvolle Verteilen auf die einzelnen Positionen gleichermaßen zum Erfolg führen. In jedem Fall sollte aber ausdrücklich darauf hingewiesen werden, daß auf generierender Seite die Berechnung des Beihilfebetrages vertragskonform anhand der Summenwerte zu erfolgen hat, ungeachtet der Übermittlung in Abrechnungszeilen.
-
 ***Abrechnungsnachweis***
 
 Die Situation ist komplett anders bei einer Datenlieferung als Abrechnungsnachweis, analog zur Rolle des E-Rezept-Abgabedatensatzes bei der Rezeptabrechnung oder des ABRP-Datenformats bei der klassischen Datenlieferung.
@@ -44,6 +40,12 @@ Vor einer möglichen Umwidmung des PHM-E-Rezeptes in einen (kassensichtbaren) el
 Bis dahin könnte das PHM-E-Rezept als reines Datentransportgehäuse betrachtet werden, ohne daß wegen seiner Struktur von einer fallbezogenen Berechnung des Beihilfe-Patientenanteils auf eine positionsbezogene Berechnung umgestellt werden müßte.
 
 Für eine korrekte Abbildung der Mehrkosten über dem Festbetrag sind dagegen keine Strukturänderungen notwendig, da für die Berechnung der Mehrkosten keine Multiplikation mit einem Faktor wie 50% und anschließender kaufmännischer Rundung notwendig ist. Eine positionsweise Anwendung der Rechenregeln mit anschließender Summierung ergibt hier genau den gleichen Betrag wie eine fallbezogene Berechnung auf Basis des Gesamtbruttos.
+
+***Übergangslösung bis zu einer Profilanpassung***
+
+Die sinnvollste Übergangslösung wäre sicher eine Festlegung, bei Pflegehilfsmitteln zum Verbrauch die vorhandenen positionsgebundenen Felder für Mehrkosten und Beihilfe-Patientenanteil (a.k.a. 'Eigenbeteiligung § 27a') grundsätzlich als belegbezogen zu betrachten, ohne wertmäßigen Bezug zur enthaltenden Position. 
+
+Die Belegwerte für Mehrkosten und Patientenanteil ergeben sich dann ganz normal durch Summieren der in den Positionen vorgefundenen Werte, so daß sowohl die Strategie 'alles an die erste Position dranhängen' als auch das sinnvolle Verteilen auf die einzelnen Positionen gleichermaßen zum Erfolg führen. In jedem Fall sollte aber ausdrücklich darauf hingewiesen werden, daß auf generierender Seite die Berechnung des Beihilfebetrages vertragskonform anhand der Summenwerte zu erfolgen hat, ungeachtet der späteren Übermittlung in Abrechnungszeilen.
 
 <sup>*1) sofern es überhaupt ein PHM-E-Rezept gibt und nicht die bis einschließlich Oktober 2025 noch zulässige Papierform zur Übermittlung genutzt wurde*</sup>
 
@@ -67,7 +69,7 @@ Die [Spezfikation für PHM-E-Rezepte (Stand 23.04.2025)][EPHM] schreibt vor, da�
 
 Man kann natürlich den Zuzahlungsstatus in der Verordnung einfach trotzdem wahrheitsgemäß setzen und darauf vertrauen, daß entweder die Spezifikation hinreichend schnell korrigiert wird, oder daß der Empfänger des PHM-E-Rezepts nicht auf Einhaltung dieses - vermutlich versehentlich aus dem PharmDL-/Impfbereich übernommenen - Details der Spezifikation pocht.
 
-Wem das zu heikel ist, der kann im Fall der Zuzahlungspflichtigkeit diese über ein Zusatzattribut im Abgabedatensatz angeben (Gruppe 15). Die Spezifikation schreibt die Verwendung dieser Gruppe zwar nicht vor, ab sie schließt sie auch nicht aus.
+Wem das zu heikel ist, der kann im Fall der Zuzahlungspflichtigkeit diese über ein Zusatzattribut im Abgabedatensatz anzeigen (Gruppe 15). Die Spezifikation schreibt die Verwendung dieser Gruppe zwar nicht vor, ab sie schließt sie auch nicht aus.
 
 [EPHM]: https://www.abda.de/fileadmin/user_upload/assets/Formulare/250423_Schiedsspruch_PflegeHiMi_elektr_Datenlieferung_TA.pdf
 
@@ -78,9 +80,11 @@ Wem das zu heikel ist, der kann im Fall der Zuzahlungspflichtigkeit diese über 
 Laut Vertrag erfolgt die Preisermittlung durch Multiplizieren eines Nettopreises mit der Stückzahl bzw. der Anzahl der 100-ml-Einheiten, gefolgt vom Aufschlagen der Umsatzsteuer. Die Nettopreise sind dabei mit 2 Nachkommastellen angegben, also auf ganze Cent.
 
 NB: in der [FAQ-Liste des GKV-Spitzenverbandes][FAQ] gibt es an mehreren Stellen eine gleichlautende Festlegung. Bei der Frage 'Wie ist mit Rundungsdifferenzen umzugehen?' gibt es zwar scheinbar eine anderslautende Angabe (
-'Bruttobetrag = (Einzelbetrag mit zwei Nachkommastellen + (ggfs.) MwSt.-Betrag) * Menge'), aber das ist möglicherweise nur eine unglücklich formulierte Empfehlung, durch Rechnen mit erhöhter Genauigkeit ein sachlich falsches Berechnungsmodell eventuell noch zu retten.
+`Bruttobetrag = (Einzelbetrag mit zwei Nachkommastellen + (ggfs.) MwSt.-Betrag) * Menge`), aber das ist möglicherweise nur eine unglücklich formulierte Empfehlung, durch Rechnen mit erhöhter Genauigkeit ein sachlich falsches Berechnungsmodell eventuell noch zu retten.
 
-Die Preisberechnunng laut Vertrag entspricht auch exakt dem Modell, daß der Datenlieferung nach § 302 für den Fall von Preisvereinbarungen mit Nettopreisen zugrundeliegt. Damit können die PHM-Daten verlustfrei und korrekt in diesem Format geliefert werden, modulo kleinerer Fehlimpedanzen bei Mehrkosten und Beihilfe-Patientenanteil.
+Die Preisberechnung laut Vertrag entspricht auch exakt dem Modell, daß der Datenlieferung nach § 302 für den Fall von Preisvereinbarungen mit Nettopreisen zugrundeliegt. Damit können die PHM-Daten verlustfrei und korrekt in diesem Format geliefert werden, modulo kleinerer Fehlimpedanzen bei Mehrkosten und Beihilfe-Patientenanteil. 
+
+Bei *nicht* vertragskonform berechneten Preisen gibt es allerdings keine Garantie, daß sie als Produkt aus Anzahl und Netto-Einheitspreis mit anschließendem Aufschlagen der Mehrwertsteuer dargestellt werden können. Selbst das Ändern der Anzahl auf den Wert 1 hilft nur in den Fällen, die sich als 'Netto + Mehrwertsteuer' darstellen lassen; die restlichen Fälle müssen dann als 'vereinbarter Bruttopreis' mit Faktor 1 geliefert werden. Diese Informationsvernichtung ist bedauerlich, aber bei dem Datenformat nach § 302 unvermeidbar.
 
 Das Datenformat gemäß § 105 SGB XI ist dagegen in seiner jetzigen Form für die PHM-Abrechnung nicht wirklich geeignet. Zum einen wird dort die Preisberechnung als 'Anzahl x Brutto-Einzelpreis' vorgeschrieben, und zum anderen können dort die Mehrkosten nur durch Zusammenwerfen mit der Zuzahlung abgebildet werden. 
 
