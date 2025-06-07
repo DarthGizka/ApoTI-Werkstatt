@@ -45,7 +45,7 @@ Für eine korrekte Abbildung der Mehrkosten über dem Festbetrag sind dagegen ke
 
 Die sinnvollste Übergangslösung wäre sicher eine Festlegung, bei Pflegehilfsmitteln zum Verbrauch die vorhandenen positionsgebundenen Felder für Mehrkosten und Beihilfe-Patientenanteil (a.k.a. 'Eigenbeteiligung § 27a') grundsätzlich als belegbezogen zu betrachten, ohne wertmäßigen Bezug zur enthaltenden Position. 
 
-Die Belegwerte für Mehrkosten und Patientenanteil ergeben sich dann ganz normal durch Summieren der in den Positionen vorgefundenen Werte, so daß sowohl die Strategie 'alles an die erste Position dranhängen' als auch das sinnvolle Verteilen auf die einzelnen Positionen gleichermaßen zum Erfolg führen. In jedem Fall sollte aber ausdrücklich darauf hingewiesen werden, daß auf generierender Seite die Berechnung des Beihilfebetrages vertragskonform anhand der Summenwerte zu erfolgen hat, ungeachtet der späteren Übermittlung in Abrechnungszeilen.
+Die Belegwerte für Mehrkosten und Patientenanteil ergeben sich dann ganz normal durch Summieren der in den Positionen vorgefundenen Werte, so daß auf sendender Seite sowohl die Strategie 'alles an die erste Position dranhängen' als auch das sinnvolle Verteilen auf die einzelnen Positionen gleichermaßen zum Erfolg führen. In jedem Fall sollte aber ausdrücklich darauf hingewiesen werden, daß auf generierender Seite die Berechnung des Beihilfebetrages vertragskonform anhand der Summenwerte zu erfolgen hat, ungeachtet der späteren Übermittlung in Abrechnungszeilen.
 
 <sup>*1) sofern es überhaupt ein PHM-E-Rezept gibt und nicht die bis einschließlich Oktober 2025 noch zulässige Papierform zur Übermittlung genutzt wurde*</sup>
 
