@@ -62,6 +62,7 @@ Praktisch gesehen können einige Formen der Beihilfe aber auch eine Vollerstattu
 [BVA]: https://www.bva.bund.de/DE/Services/Bundesbedienstete/Gesundheit-Vorsorge/Beihilfe/4_Beihilfeanspruch/41_Beihilfeberechtigte/5_Pflegebeduerftige/56_Leistungen_Pflegebeduerftige/566_Pflegehilfsmittel/566_pflegehilfsmittel.html
 
 [Vertrag]: https://www.gkv-spitzenverband.de/media/dokumente/pflegeversicherung/phm_vertraege/2025-06-01_PHM_Vertrag_mit_Verband-Vertragstext_AC-TK_11-00-P53.pdf
+
 ---
 
 ### Übermittlung des Zuzahlungsstatus
